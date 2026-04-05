@@ -66,6 +66,9 @@ def check_instruction_override(text: str) -> List[str]:
 
 
 def check_security_risks(text: str) -> List[str]:
+    if not text:
+        return []
+
     if not settings.SECURITY_ENABLE_GUARDRAILS:
         return []
 

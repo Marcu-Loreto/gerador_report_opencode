@@ -1,6 +1,5 @@
 from fastapi import APIRouter, UploadFile, File, HTTPException, Depends
-from fastapi.responses import JSONResponse, StreamingResponse
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
 from datetime import datetime
 import uuid
 
@@ -209,7 +208,9 @@ async def get_status(
 
 
 @router.get("/result/{request_id}")
-async def get_result(request_id: str):
+async def get_result(
+    request_id: str, session_store: SessionStore = Depends(lambda: session_store)
+):
     session = session_store.get_session(request_id)
     if not session:
         raise HTTPException(status_code=404, detail="Session not found")
@@ -219,7 +220,9 @@ async def get_result(request_id: str):
 
 
 @router.post("/export")
-async def export_report(request: ExportRequest):
+async def export_report(
+    request: ExportRequest, session_store: SessionStore = Depends(lambda: session_store)
+):
     session = session_store.get_session(request.request_id)
     if not session:
         raise HTTPException(status_code=404, detail="Session not found")
@@ -249,7 +252,10 @@ async def export_report(request: ExportRequest):
 
 
 @router.post("/update")
-async def update_report(request: UpdateReportRequest):
+async def update_report(
+    request: UpdateReportRequest,
+    session_store: SessionStore = Depends(lambda: session_store),
+):
     session = session_store.get_session(request.request_id)
     if not session:
         raise HTTPException(status_code=404, detail="Session not found")
@@ -267,6 +273,8 @@ async def update_report(request: UpdateReportRequest):
 
 
 @router.delete("/session/{request_id}")
-async def delete_session(request_id: str):
+async def delete_session(
+    request_id: str, session_store: SessionStore = Depends(lambda: session_store)
+):
     session_store.delete_session(request_id)
     return {"status": "deleted", "request_id": request_id}

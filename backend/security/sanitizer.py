@@ -4,6 +4,9 @@ from typing import Any
 
 
 def sanitize_input(text: str) -> str:
+    if not text:
+        return ""
+
     text = text.strip()
 
     text = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]", "", text)

@@ -1,6 +1,5 @@
 from typing import Optional, Dict, Any, Literal
 from langchain_openai import ChatOpenAI
-from langchain_anthropic import ChatAnthropic
 from langchain_core.messages import HumanMessage, SystemMessage
 from ..core.config import get_settings
 

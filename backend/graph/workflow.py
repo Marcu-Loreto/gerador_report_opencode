@@ -115,7 +115,9 @@ def security_precheck_node(state: GraphState) -> GraphState:
                 state, "security_precheck", f"Riscos detectados: {risks}", "warning"
             )
         else:
-            state = add_log(state, "security_precheck", "Conteúdo validado安全的")
+            state = add_log(
+                state, "security_precheck", "Conteúdo validado com segurança"
+            )
 
         state["status_fluxo"] = "seguranca_verificada"
     except Exception as e:

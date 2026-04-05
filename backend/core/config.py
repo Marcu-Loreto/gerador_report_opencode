@@ -50,9 +50,22 @@ class Settings(BaseSettings):
 
     CORS_ORIGINS: list = ["http://localhost:5173", "http://localhost:8000"]
 
-    class Config:
-        env_file = ".env"
-        case_sensitive = True
+    model_config = {"env_file": ".env", "case_sensitive": True}
+
+
+def validate_api_keys() -> tuple[bool, str]:
+    settings = get_settings()
+
+    has_minimax = bool(settings.LLM_API_KEY and settings.LLM_BASE_URL)
+    has_openai = bool(settings.OPENAI_API_KEY)
+
+    if not has_minimax and not has_openai:
+        return (
+            False,
+            "Nenhuma API key configurada. Defina OPENAI_API_KEY ou LLM_API_KEY (MiniMax)",
+        )
+
+    return True, ""
 
 
 @lru_cache()

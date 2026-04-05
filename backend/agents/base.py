@@ -178,4 +178,9 @@ def get_agent(agent_type: str) -> BaseAgent:
         "scientific_report": SCIENTIFIC_REPORT_AGENT,
         "final_reviewer": FINAL_REVIEWER_AGENT,
     }
-    return agents.get(agent_type)
+    agent = agents.get(agent_type)
+    if agent is None:
+        raise ValueError(
+            f"Tipo de agente desconhecido: {agent_type}. Agentes disponíveis: {list(agents.keys())}"
+        )
+    return agent

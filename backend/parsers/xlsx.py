@@ -61,8 +61,26 @@ class CSVParser(BaseParser):
         except Exception as e:
             try:
                 text = content.decode("latin-1")
-                return self.parse(text.encode("utf-8"), filename)
-            except:
+                lines = text.split("\n")
+                formatted = ""
+                for row in lines:
+                    formatted += row + "\n"
+
+                return ParsedDocument(
+                    texto=formatted,
+                    estrutura=self._detect_structure(formatted),
+                    metadados={
+                        "arquivo": filename,
+                        "tamanho": len(content),
+                        "encoding": "latin-1",
+                        "linhas": len(lines),
+                    },
+                    alertas=["Arquivo codificado em latin-1"],
+                    limitacoes=[],
+                )
+            except Exception as fallback_error:
                 result = self._create_empty_result(filename)
-                result.alertas.append(f"Erro ao processar CSV: {str(e)}")
+                result.alertas.append(
+                    f"Erro ao processar CSV: {str(e)} - Fallback também falhou: {str(fallback_error)}"
+                )
                 return result
