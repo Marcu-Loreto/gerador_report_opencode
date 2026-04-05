@@ -34,7 +34,10 @@ class Settings(BaseSettings):
     LLM_BASE_URL: str = "https://api.minimax.chat/v1"
 
     OPENAI_API_KEY: str = ""
-    OPENAI_MODEL: str = "gpt-4o"
+    OPENAI_MODEL: str = "gpt-4o-mini"
+    OPENAI_MODEL_COMPLEX: str = "gpt-4o"
+
+    ANTHROPIC_API_KEY: str = ""
 
     TEMPERATURE: float = 0.7
     MAX_TOKENS: int = 8192
