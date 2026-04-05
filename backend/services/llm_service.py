@@ -26,7 +26,7 @@ def _get_client_for_task(task_type: str = "default"):
     if complexity == "simple":
         if settings.LLM_API_KEY and settings.LLM_BASE_URL:
             return ChatOpenAI(
-                model="MiniMax-M2.1",
+                model="MiniMax-M2.5",
                 api_key=settings.LLM_API_KEY,
                 base_url=settings.LLM_BASE_URL,
                 temperature=settings.TEMPERATURE,
@@ -121,7 +121,7 @@ def get_optimal_model_for_task(task_type: str) -> tuple[str, str]:
     complexity = TASK_COMPLEXITY_MAP.get(task_type, "medium")
 
     if complexity == "simple":
-        return "MiniMax-M2.1", "MiniMax (tarefas simples)"
+        return "MiniMax-M2.5", "MiniMax-M2.5 (tarefas simples - free)"
     elif complexity == "complex":
         return (
             settings.OPENAI_MODEL_COMPLEX,
