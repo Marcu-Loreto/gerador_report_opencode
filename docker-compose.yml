@@ -17,4 +17,5 @@ services:
       - DEBUG=${DEBUG:-false}
     volumes:
       - ./.env:/app/.env
+      - ./.venv:/app/.venv
     restart: unless-stopped

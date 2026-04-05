@@ -14,7 +14,8 @@ from ..agents import (
     SCIENTIFIC_REPORT_AGENT,
     FINAL_REVIEWER_AGENT,
 )
-from ..security.guardrails import check_security_risks, sanitize_input
+from ..security.guardrails import check_security_risks
+from ..security.sanitizer import sanitize_input
 from ..validators.input_validator import validate_file
 
 

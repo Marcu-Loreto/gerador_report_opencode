@@ -10,18 +10,14 @@ RUN apt-get update && apt-get install -y \
     poppler-utils \
     && rm -rf /var/lib/apt/lists/*
 
-COPY backend/requirements.txt /app/requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+COPY . /app
 
-COPY backend /app/backend
-COPY frontend /app/frontend
-COPY docs /app/docs
-COPY README.md /app/README.md
-COPY .env_exemplo /app/.env_example
+RUN python3 -m venv /app/.venv && \
+    /app/.venv/bin/pip install --no-cache-dir -r requirements.txt
 
-ENV PYTHONPATH=/app
+ENV PYTHONPATH=/app/backend
 ENV PYTHONUNBUFFERED=1
 
 EXPOSE 8000
 
-CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["/app/.venv/bin/python", "-m", "uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]

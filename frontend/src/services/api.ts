@@ -1,7 +1,7 @@
 import axios from 'axios';
 import type { Document, AnalysisData, ReportData, SessionStatus, ReportType, ExportFormat } from '../types';
 
-const API_BASE = 'http://localhost:8000/api/v1';
+const API_BASE = 'http://localhost:8006/api/v1';
 
 export const api = axios.create({
   baseURL: API_BASE,
