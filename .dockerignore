@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.venv
+venv/
+*.log
+.git/
+.github/
+.gitignore
+.DS_Store
+*.md
+!README.md
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
